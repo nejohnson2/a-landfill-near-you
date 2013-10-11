@@ -3,9 +3,8 @@
   by Nicholas Johnson
   
   This sketch is designed to upload a csv containing latitude and longitude
-  of landfills throughout the country. (This list was taken from the EPA Echo Database)
-  Following the upload, using google maps, will take an image of the area and
-  output to a specified folder.
+  of landfills on the EPA Watchlist. Following the upload, using google 
+  maps, will take an image of the area and output to a specified folder.
   
   This code was derived from Josh Begley's Prison Map project. 
  
