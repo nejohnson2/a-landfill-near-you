@@ -6,6 +6,12 @@
   of landfills on the EPA Watchlist. Following the upload, using google 
   maps, will take an image of the area and output to a specified folder.
   
+  A section of code will also place the latitude and longitude onto the image.
+  Though the csv contains over nine thousand rows, my hope is to crowdsource
+  the resulting images to determine what is interesting, are there actually
+  landfills at these location and other general information that could be gathered
+  in the future.  This will most likely be done through Crowdcrafting.
+  
   This code was derived from Josh Begley's Prison Map project. 
  
 */
