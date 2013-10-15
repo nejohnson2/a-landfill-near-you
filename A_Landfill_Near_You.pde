@@ -12,30 +12,49 @@
 
 String[] landfills;
 String outputPath;
+String outputPathAbsolute = "/Users/luce/ITP/Processing/A_Landfill_Near_You/imagery";
 Boolean initiate = false;
 String inputFile;
+PGraphics pg;
+int zoom = 15;
 
 void setup() {
-  selectInput("Select a file to process:", "fileSelected");
+  size(640,640);
+  //selectInput("Select a file to process:", "fileSelected");
+  initiate = true;
+  textFont(createFont("Georgia", 24));
+  pg = createGraphics(640,640);
 }
 
 void draw() {
   if(initiate == true){
-    landfills = loadStrings(inputFile);
+
+     //landfills = loadStrings(inputFile);
     //landfills = loadStrings("EPA_Watchlist_geoencoded.csv");
-  
+    landfills = loadStrings("EPA-ECHO-FULL_MEDIA-LATLON_ONLY_R.csv");
+    
     for(int i = 0; i < landfills.length; i++) {  
-      String[] values = split(landfills[i], ", ");
-      String lat = values[1];
-      String lon = values[0];
-      println("lat: " + lat);
-      println("lon: " + lon);
-     
-      if(lat == "NA" || lon == "NA"){
-        print("no lat lon");
+      String[] values = split(landfills[i], ",");
+      
+      String lat = values[0];
+      String lon = values[1];
+      String na = "NA";
+      
+      if(lat.equals(na) == true){
+        println("no lat lon");
       } else {
         PImage test = getSatImage(lat,lon);
-        test.save(outputPath + "/landfill-" + i + ".jpg");
+        pg.beginDraw();
+        pg.background(test);
+        pg.fill(0, 140);
+        pg.rect(0, 595, 200, 150);
+        pg.fill(255,255,255);
+        pg.textSize(18);
+        pg.text("Lat : " + lat, 5, 615);
+        pg.text("Lon : " + lon, 5, 635);
+        pg.endDraw();
+        image(pg,0,0);
+        pg.save(outputPathAbsolute + "/landfill-" + i + "-zoom-" + zoom + ".jpg");
       }
       delay(1000); 
     }
@@ -43,8 +62,8 @@ void draw() {
 }
 
 PImage getSatImage(String lat, String lon) {
-    int zoom = 15;
     String url = "http://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lon + "&zoom=" + zoom + "&scale=1&size=640x640&maptype=satellite&sensor=false&junk=.jpg";
+    println(url);
     return(loadImage(url));
 }
 
